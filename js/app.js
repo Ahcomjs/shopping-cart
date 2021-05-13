@@ -24,7 +24,7 @@ function readCourse(course) {
     title: course.querySelector("h4").textContent,
     price: course.querySelector(".precio span").textContent,
     id: course.querySelector("a").getAttribute("data-id"),
-    cantidad: 1,
+    quantity: 1,
   };
 
   courseArticle = [...courseArticle, courseInfo];
@@ -37,11 +37,14 @@ function carHTML(courseArticle) {
   cleanHTML();
 
   courseArticle.forEach((course) => {
+    const { id, img, title, price, quantity } = course;
     const row = document.createElement("tr");
     row.innerHTML = `
-        <td>
-            ${course.title}
-        </td>
+        <td><img src="${img}" width="100"></td>
+        <td>${title}</td>
+        <td>${price}</td>
+        <td>${quantity}</td>
+        <td><a href="#" class="delete-course" data-id="${id}">X</a></td>
     `;
 
     cartContainer.appendChild(row);
