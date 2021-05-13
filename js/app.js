@@ -2,7 +2,7 @@ const cart = document.querySelector("#cart");
 const cartContainer = document.querySelector("#list-cart tbody");
 const clearCartBtn = document.querySelector("#clear-cart");
 const courseList = document.querySelector("#course-list");
-let courseArticle = [];
+let cartArticle = [];
 
 loadEventListeners();
 function loadEventListeners() {
@@ -27,16 +27,29 @@ function readCourse(course) {
     quantity: 1,
   };
 
-  courseArticle = [...courseArticle, courseInfo];
+  const exist = cartArticle.some((course) => course.id === courseInfo.id);
+  if (exist) {
+    const courses = cartArticle.map((course) => {
+      if (course.id === courseInfo.id) {
+        course.quantity++;
+        return course;
+      } else {
+        return course;
+      }
+    });
+    cartArticle = [...courses];
+  } else {
+    cartArticle = [...cartArticle, courseInfo];
+  }
 
-  carHTML(courseArticle);
+  cartHTML(cartArticle);
 }
 
-function carHTML(courseArticle) {
+function cartHTML(cartArticle) {
   //Clean HTML
   cleanHTML();
 
-  courseArticle.forEach((course) => {
+  cartArticle.forEach((course) => {
     const { id, img, title, price, quantity } = course;
     const row = document.createElement("tr");
     row.innerHTML = `
