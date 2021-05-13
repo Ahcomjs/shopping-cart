@@ -2,6 +2,7 @@ const cart = document.querySelector("#cart");
 const cartContainer = document.querySelector("#list-cart tbody");
 const clearCartBtn = document.querySelector("#clear-cart");
 const courseList = document.querySelector("#course-list");
+let courseArticle = [];
 
 loadEventListeners();
 function loadEventListeners() {
@@ -25,4 +26,30 @@ function readCourse(course) {
     id: course.querySelector("a").getAttribute("data-id"),
     cantidad: 1,
   };
+
+  courseArticle = [...courseArticle, courseInfo];
+
+  carHTML(courseArticle);
+}
+
+function carHTML(courseArticle) {
+  //Clean HTML
+  cleanHTML();
+
+  courseArticle.forEach((course) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>
+            ${course.title}
+        </td>
+    `;
+
+    cartContainer.appendChild(row);
+  });
+}
+
+function cleanHTML() {
+  while (cartContainer.firstChild) {
+    cartContainer.removeChild(cartContainer.firstChild);
+  }
 }
