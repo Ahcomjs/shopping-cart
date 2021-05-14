@@ -8,6 +8,10 @@ loadEventListeners();
 function loadEventListeners() {
   courseList.addEventListener("click", addCourses);
   cart.addEventListener("click", deleteCourse);
+  clearCartBtn.addEventListener("click", () => {
+    cartArticle = [];
+    cleanHTML();
+  });
 }
 
 //Functions
