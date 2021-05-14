@@ -7,6 +7,7 @@ let cartArticle = [];
 loadEventListeners();
 function loadEventListeners() {
   courseList.addEventListener("click", addCourses);
+  cart.addEventListener("click", deleteCourse);
 }
 
 //Functions
@@ -15,6 +16,15 @@ function addCourses(event) {
   if (event.target.classList.contains("add-cart")) {
     const selectedCourse = event.target.parentElement.parentElement;
     readCourse(selectedCourse);
+  }
+}
+
+function deleteCourse(event) {
+  if (event.target.classList.contains("delete-course")) {
+    const btnDelete = confirm("Are you sure you want to delete it?");
+    if (btnDelete) {
+      event.target.parentElement.parentElement.remove();
+    }
   }
 }
 
